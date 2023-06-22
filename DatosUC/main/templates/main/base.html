@@ -1,0 +1,155 @@
+<head>
+  <meta charset="utf-8" />
+  <title>Datos_eUC</title>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+  />
+  <style>
+    .nested.dropdown:hover > .dropdown-menu {
+      display: block;
+    }
+    .nested.dropdown .dropdown-menu {
+      top: -12px;
+      margin-left: 100%;
+    }
+    .nested.dropdown .dropdown-trigger button::after {
+    }
+    .nested.dropdown .dropdown-trigger button {
+      padding: 0px 0px;
+      border: 0px;
+      font-size: 14px;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<nav class="navbar is-info" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="{% url 'index' %}">
+      <h1 class="title is-3" style="color: white">Datos_eUC</h1>
+    </a>
+
+    <a
+      role="button"
+      class="navbar-burger"
+      aria-label="menu"
+      aria-expanded="false"
+      data-target="navbarBasicExample"
+    >
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item"> Home </a>
+
+      <a class="navbar-item"> ¿Cómo funciona? </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link"> Datos Disponibles </a>
+
+        <div class="navbar-dropdown">
+          <div class="nested dropdown">
+            <a class="navbar-item">
+              <span class="icon-text">
+                <span>Politica</span>
+                <span class="icon">
+                  <i class="fas fa-chevron-right"></i>
+                </span>
+              </span>
+            </a>
+
+            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+              <div class="dropdown-content">
+                <div class="nested dropdown">
+                  <a class="navbar-item">
+                    <span class="icon-text">
+                      <span>Elecciones</span>
+                      <span class="icon">
+                        <i class="fas fa-chevron-right"></i>
+                      </span>
+                    </span>
+                  </a>
+      
+                  <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                    <div class="dropdown-content">
+                      <a class="dropdown-item"> Universidad (FEUC) </a>
+                      <a class="dropdown-item"> Por Carrera </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="nested dropdown">
+                  <a class="navbar-item">
+                    <span class="icon-text">
+                      <span>Votaciones</span>
+                      <span class="icon">
+                        <i class="fas fa-chevron-right"></i>
+                      </span>
+                    </span>
+                  </a>
+      
+                  <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                    <div class="dropdown-content">
+                      <a class="dropdown-item"> Universidad (FEUC) </a>
+                      <a class="dropdown-item"> Por Carrera </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="nested dropdown">
+                  <a class="navbar-item">
+                    <span class="icon-text">
+                      <span>Encuestas</span>
+                      <span class="icon">
+                        <i class="fas fa-chevron-right"></i>
+                      </span>
+                    </span>
+                  </a>
+      
+                  <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                    <div class="dropdown-content">
+                      <a class="dropdown-item"> Universidad (FEUC) </a>
+                      <a class="dropdown-item"> Por Carrera </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nested dropdown">
+            <a class="navbar-item">
+              <span class="icon-text">
+                <span>Estudiantes</span>
+                <span class="icon">
+                  <i class="fas fa-chevron-right"></i>
+                </span>
+              </span>
+            </a>
+
+            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+              <div class="dropdown-content">
+                <a class="dropdown-item"> Cantidad de Alumnos </a>
+                <a class="dropdown-item"> Notas </a>
+                <a class="dropdown-item"> Información de Carrera </a>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+{% block content %}{% endblock content %}
+<footer class="footer">
+  <div class="content has-text-centered">
+    <p>
+      <strong>Datos_eUC</strong> por
+      <a href="https://github.com/Dyotson">Dyotson</a>. El codigo fuente esta
+      licenciado con
+      <a href="https://choosealicense.com/licenses/gpl-3.0/">GNU GPLv3</a>.
+      Puedes aportar al proyecto en
+      <a href="https://github.com/Dyotson/DatosUC">GitHub</a>.
+    </p>
+  </div>
+</footer>
