@@ -44,7 +44,7 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item"> Home </a>
+      <a href="{% url 'index' %}"class="navbar-item"> Home </a>
 
       <a class="navbar-item"> ¿Cómo funciona? </a>
 
@@ -76,8 +76,9 @@
       
                   <div class="dropdown-menu" id="dropdown-menu" role="menu">
                     <div class="dropdown-content">
-                      <a class="dropdown-item"> Universidad (FEUC) </a>
-                      <a class="dropdown-item"> Por Carrera </a>
+                      <a href="{% url 'elecciones_feuc' %}" class="dropdown-item"> FEUC </a>
+                      <a class="dropdown-item"> Consejerias Territoriales </a>
+                      <a class="dropdown-item"> Centros de Estudiantes </a>
                     </div>
                   </div>
                 </div>
@@ -93,25 +94,9 @@
       
                   <div class="dropdown-menu" id="dropdown-menu" role="menu">
                     <div class="dropdown-content">
-                      <a class="dropdown-item"> Universidad (FEUC) </a>
-                      <a class="dropdown-item"> Por Carrera </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="nested dropdown">
-                  <a class="navbar-item">
-                    <span class="icon-text">
-                      <span>Encuestas</span>
-                      <span class="icon">
-                        <i class="fas fa-chevron-right"></i>
-                      </span>
-                    </span>
-                  </a>
-      
-                  <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                    <div class="dropdown-content">
-                      <a class="dropdown-item"> Universidad (FEUC) </a>
-                      <a class="dropdown-item"> Por Carrera </a>
+                      <a class="dropdown-item"> Consejo FEUC </a>
+                      <a class="dropdown-item"> Consejo Ejecutivo </a>
+                      <a class="dropdown-item"> Votaciones Universales </a>
                     </div>
                   </div>
                 </div>
