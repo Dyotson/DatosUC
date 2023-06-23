@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render
+from .models import Elecciones_FEUC
 
 
 def index(request):
@@ -8,4 +9,6 @@ def index(request):
 
 
 def elecciones_feuc(request):
-    return render(request, "main/elecciones_feuc.html")
+    elecciones = Elecciones_FEUC.objects
+    context = {"elecciones": elecciones}
+    return render(request, "main/elecciones_feuc.html", context)
