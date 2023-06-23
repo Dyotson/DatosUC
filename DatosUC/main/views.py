@@ -9,6 +9,14 @@ def index(request):
 
 
 def elecciones_feuc(request):
-    elecciones = Elecciones_FEUC.objects
-    context = {"elecciones": elecciones}
+    anos = (
+        Elecciones_FEUC.objects.order_by("-ano")
+        .values_list("ano", flat=True)
+        .distinct()
+    )
+    elecciones = Elecciones_FEUC.objects.all()
+    context = {
+        "elecciones": elecciones,
+        "anos": anos,
+    }
     return render(request, "main/elecciones_feuc.html", context)

@@ -22,3 +22,6 @@ class Elecciones_FEUC(models.Model):
     votos_nulo = models.IntegerField()
     porcentaje_blanco = models.FloatField()
     votos_blanco = models.IntegerField()
+
+    class Meta:
+        ordering = ("ano", "vuelta")

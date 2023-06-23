@@ -1,5 +1,6 @@
 {% extends 'main/base.html' %} {% block content %} {% load static %}
 <body>
+  {% regroup elecciones by ano as eleccion_ano_list %}
   <h3 class="title is-3 mx-6 mt-6">Elige el año que te interesa:</h3>
   <div class="dropdown is-hoverable mx-6">
     <div class="dropdown-trigger">
@@ -12,16 +13,15 @@
     </div>
     <div class="dropdown-menu" id="dropdown-menu" role="menu">
       <div id="dropdown" class="dropdown-content">
-        <a id="2022" class="dropdown-item"> 2022 </a>
-        <a id="2021" class="dropdown-item"> 2021 </a>
-        <a id="2020" class="dropdown-item"> 2020 </a>
-        <a id="2019" class="dropdown-item"> 2019 </a>
-        <a id="2018" class="dropdown-item"> 2018 </a>
+        {% for ano in anos %}
+        <a id="{{ano}}" class="dropdown-item"> {{ano}} </a>
+        {% endfor %}
       </div>
     </div>
   </div>
+  {% for eleccion in eleccion_ano_list %}
   <div
-    id="wrapperOne"
+    id="eleccion{{eleccion.grouper}}"
     style="
       display: none;
       border: 5px solid;
@@ -30,7 +30,11 @@
       padding: 10px;
     "
   >
-    <h2>Participacion 2022: 54,54% del padron total</h2>
+    {% for vuelta in eleccion.list %}
+    <h2>
+      Participacion vuelta {{vuelta.vuelta}}: {{vuelta.quorum}}% del padron
+      total lo que equivale a {{vuelta.votantes}} votantes
+    </h2>
     <h2>Resultados:</h2>
     <table class="table" style="margin: auto; width: 50%; padding: 10px">
       <thead>
@@ -41,103 +45,61 @@
         </tr>
       </thead>
       <tbody>
+        {% if vuelta.porcentaje_mg != 0 %}
         <tr>
           <td>Movimiento Gremial</td>
-          <td>1.794</td>
-          <td>13,09%</td>
+          <td>{{vuelta.votos_mg}}</td>
+          <td>{{vuelta.porcentaje_mg}}%</td>
         </tr>
+        {% endif %} {% if vuelta.porcentaje_sdd != 0 %}
         <tr>
           <td>Solidaridad</td>
-          <td>2.841</td>
-          <td>20,72%</td>
+          <td>{{vuelta.votos_sdd}}</td>
+          <td>{{vuelta.porcentaje_sdd}}%</td>
         </tr>
+        {% endif %} {% if vuelta.porcentaje_avnzr != 0 %}
         <tr>
           <td>Avanzar</td>
-          <td>2.177</td>
-          <td>15,87%</td>
+          <td>{{vuelta.votos_avnzr}}</td>
+          <td>{{vuelta.porcentaje_avnzr}}%</td>
         </tr>
+        {% endif %} {% if vuelta.porcentaje_nau != 0 %}
         <tr>
           <td>Nueva Accion Universitaria</td>
-          <td>6.896</td>
-          <td>50,31%</td>
+          <td>{{vuelta.votos_nau}}</td>
+          <td>{{vuelta.porcentaje_nau}}%</td>
+        </tr>
+        {% endif %} {% if vuelta.porcentaje_surgencia != 0 %}
+        <tr>
+          <td>Surgencia</td>
+          <td>{{vuelta.votos_surgencia}}</td>
+          <td>{{vuelta.porcentaje_surgencia}}%</td>
+          {% endif %}
         </tr>
       </tbody>
     </table>
+    {% endfor %}
   </div>
-  <div
-    id="wrapperTwo"
-    style="
-      display: none;
-      border: 5px solid;
-      margin: auto;
-      width: 50%;
-      padding: 10px;
-    "
-  >
-    <h2>Participacion 2021: 55,18% del padron total</h2>
-    <h2>Resultados:</h2>
-    <table class="table" style="margin: auto; width: 50%; padding: 10px">
-      <thead>
-        <tr>
-          <th>Movimiento</th>
-          <th>Votos</th>
-          <th>Porcentaje</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Movimiento Gremial</td>
-          <td>5.959</td>
-          <td>41,27%</td>
-        </tr>
-        <tr>
-          <td>Nueva Accion Universitaria</td>
-          <td>7.589</td>
-          <td>52,56%</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div
-    id="wrapperThree"
-    style="
-      display: none;
-      border: 5px solid;
-      margin: auto;
-      width: 50%;
-      padding: 10px;
-    "
-  >
-    <h2>Participacion 2020: 0%% del padron total</h2>
-    <h2>Resultados:</h2>
-    <h1 class="title is-3">No hubo elecciones en 2020</h1>
-  </div>
+  {% endfor %}
   <div class="mt-5"></div>
   <script>
-    var first = document.getElementById("2022");
-    var second = document.getElementById("2021");
-    var third = document.getElementById("2020");
-    var fourth = document.getElementById("2019");
-    var fifth = document.getElementById("2018");
-    var wrapperOne = document.getElementById("wrapperOne");
-    var wrapperTwo = document.getElementById("wrapperTwo");
-    var wrapperThree = document.getElementById("wrapperThree");
-    first.addEventListener("click", function handleClick() {
+    {% for ano in anos %}
+    var ano{{ano}} = document.getElementById("{{ano}}");
+    {% endfor %}
+    {% for ano in anos %}
+    var wrapper{{ano}} = document.getElementById("eleccion{{ano}}");
+    {% endfor %}
+    {% for ano in anos %}
+    ano{{ano}}.addEventListener("click", function handleClick() {
       console.log("click");
-      wrapperOne.style.display = "block";
-      wrapperTwo.style.display = "none";
-      wrapperThree.style.display = "none";
+      wrapper{{ano}}.style.display = "block";
+      {% for ano1 in anos %}
+      {% if ano != ano1 %}
+      wrapper{{ano1}}.style.display = "none";
+      {% endif %}
+      {% endfor %}
     });
-    second.addEventListener("click", function handleClick() {
-      wrapperOne.style.display = "none";
-      wrapperTwo.style.display = "block";
-      wrapperThree.style.display = "none";
-    });
-    third.addEventListener("click", function handleClick() {
-      wrapperOne.style.display = "none";
-      wrapperTwo.style.display = "none";
-      wrapperThree.style.display = "block";
-    });
+    {% endfor %}
   </script>
 </body>
 {% endblock content %}
