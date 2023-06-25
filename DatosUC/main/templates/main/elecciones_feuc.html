@@ -128,10 +128,15 @@
           }
       });
       </script>
+      <hr style="border-top: 8px solid #bbb; border-radius: 5px;"></hr>
     {% endfor %}
   </div>
   {% endfor %}
   <div class="mt-5"></div>
+  <div class="box has-text-centered">
+    <p class="has-text-centered">Puedes descargar esta información en el siguiente </p>
+    <button class="button has-text-centered is-link is-rounded is-centered" onclick="location.href='https://github.com/Dyotson/DatosUC/blob/main/datos/elecciones_feuc.csv';">Link</button>
+  </div>
   <script>
     {% for ano in anos %}
     var ano{{ano}} = document.getElementById("{{ano}}");
