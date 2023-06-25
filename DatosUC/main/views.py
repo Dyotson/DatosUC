@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render
-from .models import Elecciones_FEUC
+from .models import Elecciones_FEUC, Consejo_FEUC, Votaciones_FEUC
 
 
 def index(request):
@@ -20,3 +20,13 @@ def elecciones_feuc(request):
         "anos": anos,
     }
     return render(request, "main/elecciones_feuc.html", context)
+
+
+def votaciones_feuc(request):
+    anos = Consejo_FEUC.objects.order_by("-ano").values_list("ano", flat=True)
+    votaciones_feuc = Votaciones_FEUC.objects.all()
+    context = {
+        "votaciones": votaciones_feuc,
+        "anos": anos,
+    }
+    return render(request, "main/votaciones_feuc.html", context)

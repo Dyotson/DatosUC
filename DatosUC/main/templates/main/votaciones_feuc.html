@@ -1,0 +1,121 @@
+{% extends 'main/base.html' %} {% block content %} {% load static %}
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <h3 class="title is-3 mx-6 mt-6">Elige el año que te interesa:</h3>
+  <div class="dropdown is-hoverable mx-6">
+    <div class="dropdown-trigger">
+      <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+        <span>Año =></span>
+        <span class="icon is-small">
+          <i class="fas fa-angle-down" aria-hidden="true"></i>
+        </span>
+      </button>
+    </div>
+    <div class="dropdown-menu" id="dropdown-menu" role="menu">
+      <div id="dropdown" class="dropdown-content">
+        {% for ano in anos %}
+        <a id="{{ano}}" class="dropdown-item"> {{ano}} </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% regroup votaciones by consejo.ano as votaciones_list %}
+  {% for votacion in votaciones_list %}
+  <div
+    id="eleccion{{votacion.grouper}}"
+    style="
+      display: none;
+      border: 5px solid;
+      margin: auto;
+      width: 50%;
+      padding: 10px;
+    "
+  >
+    <h4 class="title is-4 mx-6 mt-2">{{votacion.grouper}}</h4>
+    {% for data in votacion.list %}
+    <h2>
+      {{data.votacion}}
+    </h2>
+    <h2>Resultados:</h2>
+    
+    <table class="table" style="margin: auto; width: 50%; padding: 10px">
+      <thead>
+        <tr>
+          <th>Opcion</th>
+          <th>Votos</th>
+        </tr>
+      </thead>
+      <tbody id="tbody_{{data.id}}">
+      </tbody>
+    </table>
+    <script>
+      const obj{{data.id}} = JSON.parse('{{ data.votos|safe|cut:"\\\"" }}');
+      const opciones{{data.id}} = Object.keys(obj{{data.id}});
+      const votos{{data.id}} = [];
+      for (const a in obj{{data.id}}) {
+        var voto = obj{{data.id}}[a]["101"];
+        votos{{data.id}}.push(voto);
+      }
+      const tbody{{data.id}} = document.getElementById('tbody_{{data.id}}')
+      var x{{data.id}} = 0;
+      opciones{{data.id}}.forEach(item => {
+        const tr{{data.id}} = tbody{{data.id}}.insertRow();
+        tr{{data.id}}.insertCell().innerText = item;
+        tr{{data.id}}.insertCell().innerText = votos{{data.id}}[x{{data.id}}];
+        x{{data.id}}++;
+      })
+    </script>
+    <canvas id="chart{{data.id}}" width="800" height="400"></canvas>
+    <script>
+      const ctx{{data.id}} = document.getElementById('chart{{data.id}}').getContext('2d');
+      const myChartchart{{data.id}} = new Chart(ctx{{data.id}}, {
+          type: 'bar',
+          data: {
+            labels : opciones{{data.id}},
+              datasets: [{
+                label: "Numero de votos por movimiento",
+                data : votos{{data.id}},
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+              }]
+          },
+          options: {
+              scales: {
+                  y: {
+                      beginAtZero: true
+                  }
+              }
+          }
+      });
+      </script>
+      <hr style="border-top: 8px solid #bbb; border-radius: 5px;"></hr>
+    {% endfor %}
+  </div>
+  {% endfor %}
+  <div class="mt-5"></div>
+  <div class="box has-text-centered">
+    <p class="has-text-centered">Puedes descargar esta información en el siguiente </p>
+    <button class="button has-text-centered is-link is-rounded is-centered" onclick="location.href='https://github.com/Dyotson/DatosUC/blob/main/datos/processed/votaciones_consejo.csv';">Link</button>
+  </div>
+  <script>
+    {% for ano in anos %}
+    var ano{{ano}} = document.getElementById("{{ano}}");
+    {% endfor %}
+    {% for ano in anos %}
+    var wrapper{{ano}} = document.getElementById("eleccion{{ano}}");
+    {% endfor %}
+    {% for ano in anos %}
+    ano{{ano}}.addEventListener("click", function handleClick() {
+      console.log("click");
+      wrapper{{ano}}.style.display = "block";
+      {% for ano1 in anos %}
+      {% if ano != ano1 %}
+      wrapper{{ano1}}.style.display = "none";
+      {% endif %}
+      {% endfor %}
+    });
+    {% endfor %}
+  </script>
+</body>
+{% endblock content %}
