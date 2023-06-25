@@ -1,6 +1,7 @@
 {% extends 'main/base.html' %} {% block content %} {% load static %}
 <body>
   {% regroup elecciones by ano as eleccion_ano_list %}
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <h3 class="title is-3 mx-6 mt-6">Elige el año que te interesa:</h3>
   <div class="dropdown is-hoverable mx-6">
     <div class="dropdown-trigger">
@@ -30,7 +31,12 @@
       padding: 10px;
     "
   >
+    <h4 class="title is-4 mx-6 mt-2">{{eleccion.grouper}}</h4>
     {% for vuelta in eleccion.list %}
+    <script>
+      const movimientos{{eleccion.grouper}}_{{vuelta.vuelta}} = [];
+      const votos{{eleccion.grouper}}_{{vuelta.vuelta}} = [];
+    </script>
     <h2>
       Participacion vuelta {{vuelta.vuelta}}: {{vuelta.quorum}}% del padron
       total lo que equivale a {{vuelta.votantes}} votantes
@@ -46,30 +52,50 @@
       </thead>
       <tbody>
         {% if vuelta.porcentaje_mg != 0 %}
+        <script>
+          movimientos{{eleccion.grouper}}_{{vuelta.vuelta}}.push("Movimiento Gremial");
+          votos{{eleccion.grouper}}_{{vuelta.vuelta}}.push({{vuelta.votos_mg}});
+        </script>
         <tr>
           <td>Movimiento Gremial</td>
           <td>{{vuelta.votos_mg}}</td>
           <td>{{vuelta.porcentaje_mg}}%</td>
         </tr>
         {% endif %} {% if vuelta.porcentaje_sdd != 0 %}
+        <script>
+          movimientos{{eleccion.grouper}}_{{vuelta.vuelta}}.push("Solidaridad");
+          votos{{eleccion.grouper}}_{{vuelta.vuelta}}.push({{vuelta.votos_sdd}});
+        </script>
         <tr>
           <td>Solidaridad</td>
           <td>{{vuelta.votos_sdd}}</td>
           <td>{{vuelta.porcentaje_sdd}}%</td>
         </tr>
         {% endif %} {% if vuelta.porcentaje_avnzr != 0 %}
+        <script>
+          movimientos{{eleccion.grouper}}_{{vuelta.vuelta}}.push("Avanzar");
+          votos{{eleccion.grouper}}_{{vuelta.vuelta}}.push({{vuelta.votos_avnzr}});
+        </script>
         <tr>
           <td>Avanzar</td>
           <td>{{vuelta.votos_avnzr}}</td>
           <td>{{vuelta.porcentaje_avnzr}}%</td>
         </tr>
         {% endif %} {% if vuelta.porcentaje_nau != 0 %}
+        <script>
+          movimientos{{eleccion.grouper}}_{{vuelta.vuelta}}.push("Nueva Accion Universitaria");
+          votos{{eleccion.grouper}}_{{vuelta.vuelta}}.push({{vuelta.votos_nau}});
+        </script>
         <tr>
           <td>Nueva Accion Universitaria</td>
           <td>{{vuelta.votos_nau}}</td>
           <td>{{vuelta.porcentaje_nau}}%</td>
         </tr>
         {% endif %} {% if vuelta.porcentaje_surgencia != 0 %}
+        <script>
+          movimientos{{eleccion.grouper}}_{{vuelta.vuelta}}.push("Surgencia");
+          votos{{eleccion.grouper}}_{{vuelta.vuelta}}.push({{vuelta.votos_surgencia}});
+        </script>
         <tr>
           <td>Surgencia</td>
           <td>{{vuelta.votos_surgencia}}</td>
@@ -78,6 +104,30 @@
         </tr>
       </tbody>
     </table>
+    <canvas id="chart{{eleccion.grouper}}_{{vuelta.vuelta}}" width="800" height="400"></canvas>
+    <script>
+      const ctx{{eleccion.grouper}}_{{vuelta.vuelta}} = document.getElementById('chart{{eleccion.grouper}}_{{vuelta.vuelta}}').getContext('2d');
+      const myChart{{eleccion.grouper}}_{{vuelta.vuelta}} = new Chart(ctx{{eleccion.grouper}}_{{vuelta.vuelta}}, {
+          type: 'bar',
+          data: {
+            labels : movimientos{{eleccion.grouper}}_{{vuelta.vuelta}},
+              datasets: [{
+                label: "Numero de votos por movimiento",
+                data : votos{{eleccion.grouper}}_{{vuelta.vuelta}},
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+              }]
+          },
+          options: {
+              scales: {
+                  y: {
+                      beginAtZero: true
+                  }
+              }
+          }
+      });
+      </script>
     {% endfor %}
   </div>
   {% endfor %}
