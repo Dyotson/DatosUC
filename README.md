@@ -22,3 +22,10 @@ DJANGO_DB_PORT=5432
 ```
 pip install -r requirements.txt
 ```
+
+4. Correr el web server
+
+```
+cd DatosUC
+python manage.py runserver
+```
