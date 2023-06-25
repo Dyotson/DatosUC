@@ -31,12 +31,16 @@
       padding: 10px;
     "
   >
-    <h4 class="title is-4 mx-6 mt-2">{{votacion.grouper}}</h4>
+    <h4 class="title is-4 mx-6 mt-2 mb-1">{{votacion.grouper}}</h4>
+    <div class="mt-2 mb-2">
+      <label for="myInput{{votacion.grouper}}">Buscar votacion: </label><input class="input" type="text" id="myInput{{votacion.grouper}}" onkeyup="myFunction()" placeholder="Nombre votacion...">
+    </div>
     {% for data in votacion.list %}
+    <div class="votaciones{{votacion.grouper}}">
     <h2>
       {{data.votacion}}
     </h2>
-    <h2>Resultados:</h2>
+    <h3>Resultados:</h3>
     
     <table class="table" style="margin: auto; width: 50%; padding: 10px">
       <thead>
@@ -89,7 +93,30 @@
           }
       });
       </script>
+      <script>
+        function myFunction() {
+          // Declare variables
+          var input{{votacion.grouper}}, filter{{votacion.grouper}}, ul{{votacion.grouper}}, li{{votacion.grouper}}, a{{votacion.grouper}}, i{{votacion.grouper}}, txtValue{{votacion.grouper}};
+          input{{votacion.grouper}} = document.getElementById('myInput{{votacion.grouper}}');
+          filter{{votacion.grouper}} = input{{votacion.grouper}}.value.toUpperCase();
+          ul{{votacion.grouper}} = document.getElementById("eleccion{{votacion.grouper}}");
+          li{{votacion.grouper}} = ul{{votacion.grouper}}.getElementsByTagName('h2');
+          divs{{votacion.grouper}} = ul{{votacion.grouper}}.getElementsByClassName('votaciones{{votacion.grouper}}');
+        
+          // Loop through all list items, and hide those who don't match the search query
+          for (i = 0; i < li{{votacion.grouper}}.length; i++) {
+            a = li{{votacion.grouper}}[i];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter{{votacion.grouper}}) > -1) {
+              divs{{votacion.grouper}}[i].style.display = "";
+            } else {
+              divs{{votacion.grouper}}[i].style.display = "none";
+            }
+          }
+        }
+        </script>
       <hr style="border-top: 8px solid #bbb; border-radius: 5px;"></hr>
+    </div>
     {% endfor %}
   </div>
   {% endfor %}
