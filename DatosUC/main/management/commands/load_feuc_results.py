@@ -6,13 +6,6 @@ from django.core.management.base import CommandParser
 from main.models import Elecciones_FEUC
 
 
-ALREDY_LOADED_ERROR_MESSAGE = """
-If you need to reload the child data from the CSV file,
-first delete the db.sqlite3 file to destroy the database.
-Then, run `python manage.py migrate` for a new empty
-database with tables"""
-
-
 class Command(BaseCommand):
     # Show this when the user types help
     help = "Loads data from csv of FEUC elections into our database"

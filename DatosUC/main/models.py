@@ -25,3 +25,15 @@ class Elecciones_FEUC(models.Model):
 
     class Meta:
         ordering = ("ano", "vuelta")
+
+
+class Consejo_FEUC(models.Model):
+    ano = models.IntegerField()
+
+
+class Votaciones_FEUC(models.Model):
+    votacion = models.CharField(max_length=100)
+    apruebo = models.IntegerField()
+    rechazo = models.IntegerField()
+    abstencion = models.IntegerField()
+    consejo = models.ForeignKey(Consejo_FEUC, on_delete=models.CASCADE)
