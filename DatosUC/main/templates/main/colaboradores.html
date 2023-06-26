@@ -1,0 +1,35 @@
+{% extends 'main/base.html' %} {% block content %} {% load static %}
+<body>
+  <section class="hero is-small is-link">
+    <div class="hero-body">
+      <p class="title">Colaboradores Datos_eUC</p>
+      <p class="subtitle">
+        Todas las personas que han aportado al proyecto con data/codigo/apoyo
+      </p>
+    </div>
+  </section>
+  <div class="container mt-3"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+  <script>
+    const getUsers = () => {
+      const owner = "Dyotson",
+        repo = "DatosUC";
+      axios
+        .get(`https://api.github.com/repos/${owner}/${repo}/contributors`)
+        .then((response) => {
+          const users = response.data;
+          const div = document.querySelector(".container");
+          var img = document.createElement("img");
+          img.style.cssText =
+            "width: 100px; height: 100px; border-radius: 50%;";
+          div.appendChild(img).src = users.map((u) => u.avatar_url);
+          div.innerHTML += users.map((u) => u.login).join("<h1 /> ");
+          div.innerHTML += " | ";
+          div.innerHTML += users.map((u) => u.html_url).join("<a /> ");
+        })
+        .catch((error) => console.error(error));
+    };
+    getUsers();
+  </script>
+</body>
+{% endblock content %}
