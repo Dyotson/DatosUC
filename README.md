@@ -2,30 +2,32 @@
 
 Pagina web para almacenar toda la información relacionada a datos producidos por los alumnos en las diferentes instancias universitarias (Votaciones, numero de alumnos, PPA, etc.)
 
-# Como montar en local
+## Como montar en local
 
-1. Crear un venv para el proyecto
-2. Crear un .env dentro de la carpeta 'DatosUC' con la siguiente información:
+    1. Instala ==Poetry== en tu sistema.
+        ```
+        curl -sSL https://install.python-poetry.org | python3 -
+        ```
+    2. Ve al directorio donde esta el proyecto de Github
+        ```
+        cd DatosUC/
+        ```
+    3. Inicia ==Poetry==
+        ```
+        poetry init
+        ```
+    4. Corre el servidor
+        ```
+        poetry run ./manage.py runserver
+        ```
 
-```
-DJANGO_SECRET_KEY=<Tu Django Secret Key>
-DEBUG=True
-DJANGO_DB_NAME=datosuc
-DJANGO_DB_USER=<El username de tu PostgreSQL>
-DJANGO_DB_PASSWORD=<El password de tu PostgreSQL>
-DJANGO_DB_HOST=localhost
-DJANGO_DB_PORT=5432
-```
+## Funciones importantes
 
-3. Instalar los paquetes necesarios con pip
-
-```
-pip install -r requirements.txt
-```
-
-4. Correr el web server
-
-```
-cd DatosUC
-python manage.py runserver
-```
+    - Importar datos consejos FEUC:
+        ```
+        poetry run ./manage.py load_feuc_consejo datos/<Nombre Archivo> <Año>
+        ```
+    - Importar datos elecciones FEUC:
+        ```
+        poetry run ./manage.py load_feuc_results datos/elecciones_feuc.csv
+        ```

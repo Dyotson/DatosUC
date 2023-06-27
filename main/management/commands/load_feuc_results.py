@@ -18,6 +18,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # Code to load the data into database
         print("Importing data from", options["path"])
+        Elecciones_FEUC.objects.all().delete()
         for row in DictReader(open(options["path"], encoding="utf-8"), delimiter=";"):
             print("Importing", row["ano"], "vuelta", row["vuelta"], "elections")
             eleccion = Elecciones_FEUC(

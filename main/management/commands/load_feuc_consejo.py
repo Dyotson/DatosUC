@@ -31,6 +31,7 @@ class Command(BaseCommand):
         abstengos = df.columns[df.isin(["Abstengo"]).any()]
         abstengos = list(abstengos)
         votaciones_finales = pd.DataFrame()
+        Consejo_FEUC.objects.filter(ano=options["ano"]).delete()
         consejo_feuc = Consejo_FEUC.objects.create(ano=options["ano"])
         consejo_feuc.save()
         for votacion_index, abstengo in zip(votaciones, abstengos):
