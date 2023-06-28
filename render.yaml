@@ -22,3 +22,5 @@ services:
         value: 4
       - key: POETRY_VERSION
         value: 1.5.1
+      - key: PYTHON_VERSION
+        value: 3.11.4
