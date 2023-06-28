@@ -24,3 +24,5 @@ services:
         value: 1.5.1
       - key: PYTHON_VERSION
         value: 3.11.4
+      - key: DEBUG
+        value: false
