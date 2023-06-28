@@ -1,6 +1,6 @@
 databases:
   - name: Datos_eUC
-    databaseName: Datos_eUC
+    databaseName: datoseuc
     user: data_admin
 
 services:
