@@ -4,7 +4,6 @@ version = "0.1.0"
 description = ""
 authors = ["Dyotson https://github.com/Dyotson"]
 readme = "README.md"
-packages = [{include = "datos_uc"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
