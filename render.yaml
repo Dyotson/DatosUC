@@ -2,6 +2,7 @@ databases:
   - name: Datos_eUC
     databaseName: datoseuc
     user: data_admin
+    plan: free
 
 services:
   - type: web
