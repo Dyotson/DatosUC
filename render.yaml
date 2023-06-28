@@ -9,7 +9,7 @@ services:
     name: Datos_eUC
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn Datos_eUC.wsgi:application"
+    startCommand: "gunicorn DatosUC.wsgi:application"
     plan: free
     envVars:
       - key: DATABASE_URL
